@@ -1,3 +1,8 @@
+/* Cat Petter 2000 created by Charlotte Hicken 
+
+
+
+*/
 
 PImage flameImg;
 Background Background1;
