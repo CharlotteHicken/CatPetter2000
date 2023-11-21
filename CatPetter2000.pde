@@ -18,7 +18,8 @@ void setup() {
   
   CatFace1 = new CatFace();
   
-  startScreen = false;
+  startScreen = true;
+  gameOver = false;
   
   rectMode(CORNERS);
 }
@@ -44,7 +45,7 @@ void draw(){
 
 void startScreenOn() {
   //reset all the values to the default
-  
+  gameOver = false;
   //draw flame background
   background(flameImg); //sets the background to the flame image
   
@@ -125,6 +126,7 @@ void gamePlaying() {
  quad(135, 20, 140, 15, 175, 50, 170, 55); //strike 3 \
  quad(170, 15, 175, 20, 140, 55, 135, 50); // strike 3 /
  
+ distance = 100;
  //draw differnet cat faces
  switch (distance) {
    case 0:
@@ -146,8 +148,27 @@ void gamePlaying() {
 }
 
 void gameOverOn() {
-  //call draw background but cat bite hand
+  //call draw background but cat bite
   Background1.drawBackground("end");
+  CatFace1.DrawCatFace("angry");
+  
   //draw game over text
-  //draw reset button, when mousePressed set gameOver to false and startScreen to true
+  
+  //draw reset button, when mousePressed set startScreen to true
+ rectMode(CORNERS); //set rectMode style to corners
+ 
+ fill(0); //draw with black
+ rect(330, 420, 570, 510); // button background
+ fill(255, 0, 0); //red
+ textSize(80); //medium text size
+ text("Restart", 330, 490); //button text
+ 
+ if (mouseX >= 330 && mouseX <= 570 && mouseY >= 420 && mouseY <= 510) { //if mouse is over the button, highlight it
+   fill(255, 100, 0, 20); // very translucent orange
+   rect(330, 420, 570, 510); // rectangle that highlights the button shape
+   
+   if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
+     startScreen = true;
+   }
+}
 }
