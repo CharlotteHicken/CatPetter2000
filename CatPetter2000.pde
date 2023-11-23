@@ -10,6 +10,8 @@ CatFace CatFace1;
 boolean startScreen;
 boolean gameOver;
 int distance;
+enum GameState {START, GAMEOVER, GAMEPLAY};
+GameState currentState = GameState.START;
 
 void setup() {
   size(900, 600); //set canvas size to a landscape rectangle
@@ -31,16 +33,18 @@ void setup() {
 }
 
 void draw(){
-  if (startScreen) {
-    startScreenOn();
-  }
-  else if (gameOver) {
-    gameOverOn();
-  }
-  else {
-    gamePlaying();
-  }
   
+  switch(currentState) {
+    case START:
+      startScreenOn();
+      break;
+    case GAMEOVER:
+      gameOverOn();
+      break;
+    case GAMEPLAY:
+      gamePlaying();
+      break;
+  }
   
   //testing feature that will be commented out at the end
   if (mousePressed) { //if mouse is pressed, print the coordinates of where it was pressed
@@ -74,7 +78,7 @@ void startScreenOn() {
    rect(330, 420, 570, 510); // rectangle that highlights the button shape
    
    if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
-     startScreen = false;
+     currentState = GameState.GAMEPLAY;
    }
  }
 }
@@ -132,23 +136,20 @@ void gamePlaying() {
  quad(135, 20, 140, 15, 175, 50, 170, 55); //strike 3 \
  quad(170, 15, 175, 20, 140, 55, 135, 50); // strike 3 /
  
- distance = 0;
+ distance = mouseX;
  //draw differnet cat faces
- switch (distance) {
-   case 0:
+ if (distance >= 0 && distance <= 20) {
      CatFace1.DrawCatFace("happy");
-     break;
-   case 10: 
-     CatFace1.DrawCatFace("smile");
-     break;
-   case 50:
-     CatFace1.DrawCatFace("neutral");
-     break;
-   case 100:
-     CatFace1.DrawCatFace("mad");
-     //add a Strike
-     break;
-   
+ }
+ else if (distance >= 20 && distance <= 50) {
+   CatFace1.DrawCatFace("smile");
+ }
+ else if (distance >= 50 && distance <= 100) {
+   CatFace1.DrawCatFace("neutral");
+ }
+ else {
+   CatFace1.DrawCatFace("mad");
+   //add a Strike
  }
  
 }
@@ -174,7 +175,7 @@ void gameOverOn() {
    rect(330, 420, 570, 510); // rectangle that highlights the button shape
    
    if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
-     startScreen = true;
+     currentState = GameState.START;
    }
 }
 }
