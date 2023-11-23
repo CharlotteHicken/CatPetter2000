@@ -58,10 +58,10 @@ public class Background {
        //draw game over text
        textSize(135); //set the size for the game title to large
        fill(0); //black
-       text("Game Over", 130, 155); //title near the top
+       text("Game Over", width/2, 100); //title near the top
        textSize(128); //set the size for the game title to large
        fill(255, 0, 0); //red
-       text("Game Over", 145, 155); //title near the top
+       text("Game Over", width/2, 100); //title near the top
    }
    
   }
