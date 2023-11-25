@@ -23,8 +23,8 @@ void setup() {
   
   CatFace1 = new CatFace();
   
-  startScreen = true;
-  gameOver = false;
+  startScreen = false;
+  gameOver = true;
   
   rectMode(CORNERS);
 }
