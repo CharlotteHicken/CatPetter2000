@@ -10,11 +10,14 @@ CatFace CatFace1;
 boolean startScreen;
 boolean gameOver;
 int distance;
+enum GameState {START, GAMEOVER, GAMEPLAY};
+GameState currentState = GameState.START;
 
 void setup() {
   size(900, 600); //set canvas size to a landscape rectangle
   
   noStroke(); //no outline on shapes
+  textAlign(CENTER, CENTER);
   
   frameRate(30); //frame rate at 30
   
@@ -30,16 +33,18 @@ void setup() {
 }
 
 void draw(){
-  if (startScreen) {
-    startScreenOn();
-  }
-  else if (gameOver) {
-    gameOverOn();
-  }
-  else {
-    gamePlaying();
-  }
   
+  switch(currentState) {
+    case START:
+      startScreenOn();
+      break;
+    case GAMEOVER:
+      gameOverOn();
+      break;
+    case GAMEPLAY:
+      gamePlaying();
+      break;
+  }
   
   //testing feature that will be commented out at the end
   if (mousePressed) { //if mouse is pressed, print the coordinates of where it was pressed
@@ -57,7 +62,7 @@ void startScreenOn() {
   //draw title text
   textSize(128); //set the size for the game title to large
   fill(255, 0, 0); //red
-  text("Cat Petter 2000", 50, 150); //title near the top
+  text("Cat Petter 2000", width/2, 150); //title near the top
   
  //draw button and add functions to it, so when mousePressed set startScreen to false
  rectMode(CORNERS); //set rectMode style to corners
@@ -66,14 +71,14 @@ void startScreenOn() {
  rect(330, 420, 570, 510); // button background
  fill(255, 0, 0); //red
  textSize(80); //medium text size
- text("Start", 365, 490); //button text
+ text("Start", width/2, 460); //button text
  
  if (mouseX >= 330 && mouseX <= 570 && mouseY >= 420 && mouseY <= 510) { //if mouse is over the button, highlight it
    fill(255, 100, 0, 20); // very translucent orange
    rect(330, 420, 570, 510); // rectangle that highlights the button shape
    
    if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
-     startScreen = false;
+     currentState = GameState.GAMEPLAY;
    }
  }
 }
@@ -131,23 +136,20 @@ void gamePlaying() {
  quad(135, 20, 140, 15, 175, 50, 170, 55); //strike 3 \
  quad(170, 15, 175, 20, 140, 55, 135, 50); // strike 3 /
  
- distance = 100;
+ distance = mouseX;
  //draw differnet cat faces
- switch (distance) {
-   case 0:
+ if (distance >= 0 && distance <= 20) {
      CatFace1.DrawCatFace("happy");
-     break;
-   case 10: 
-     CatFace1.DrawCatFace("smile");
-     break;
-   case 50:
-     CatFace1.DrawCatFace("neutral");
-     break;
-   case 100:
-     CatFace1.DrawCatFace("mad");
-     //add a Strike
-     break;
-   
+ }
+ else if (distance >= 20 && distance <= 50) {
+   CatFace1.DrawCatFace("smile");
+ }
+ else if (distance >= 50 && distance <= 100) {
+   CatFace1.DrawCatFace("neutral");
+ }
+ else {
+   CatFace1.DrawCatFace("mad");
+   //add a Strike
  }
  
 }
@@ -166,14 +168,14 @@ void gameOverOn() {
  rect(330, 420, 570, 510); // button background
  fill(255, 0, 0); //red
  textSize(80); //medium text size
- text("Restart", 330, 490); //button text
+ text("Restart", width/2, 460); //button text
  
  if (mouseX >= 330 && mouseX <= 570 && mouseY >= 420 && mouseY <= 510) { //if mouse is over the button, highlight it
    fill(255, 100, 0, 20); // very translucent orange
    rect(330, 420, 570, 510); // rectangle that highlights the button shape
    
    if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
-     startScreen = true;
+     currentState = GameState.START;
    }
 }
 }
