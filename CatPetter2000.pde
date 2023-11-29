@@ -7,11 +7,14 @@
 PImage flameImg;
 Background Background1;
 CatFace CatFace1;
+Fur Fur1;
 boolean startScreen;
 boolean gameOver;
 int distance;
 enum GameState {START, GAMEOVER, GAMEPLAY};
 GameState currentState = GameState.START;
+
+Fur[] fur = new Fur[15];
 
 void setup() {
   size(900, 600); //set canvas size to a landscape rectangle
@@ -26,10 +29,16 @@ void setup() {
   
   CatFace1 = new CatFace();
   
+  Fur1 = new Fur();
+  
   startScreen = false;
   gameOver = true;
   
   rectMode(CORNERS);
+  
+  for (int i = 0; i < fur.length; i++) { //initialize the fur array
+    fur[i] = new Fur();
+  }
 }
 
 void draw(){
@@ -151,6 +160,15 @@ void gamePlaying() {
    CatFace1.DrawCatFace("mad");
    //add a Strike
  }
+ 
+ if (mousePressed) {
+   for(int i = 0; i < fur.length; i++) {
+      fur[i].move(); // move the fur particles
+      fur[i].display(); //draw the particles
+   }
+   
+ }
+ 
  
 }
 
