@@ -1,8 +1,17 @@
 public class Background {
+  
+  int numVectors = 50;
+  PVector[] vectors;
+  
+  void initializeBackgroundVectors(){
+    vectors = generateRandomVectors(); //generates all the random positions in one go!
+  }
  
   void drawBackground(String bgMode) {
     //draw the background, eventually it will have a randomized pattern
     background(69, 105, 144); //pretty blue background
+    
+    drawBluePattern(vectors); //draw the random background lines
    
    //draw floor
    fill(100, 66, 40); //medium brown
@@ -64,6 +73,43 @@ public class Background {
        text("Game Over", width/2, 100); //title near the top
    }
    
+  }
+  
+  public void drawBluePattern(PVector[] vectors) {
+    // Set the stroke color to blue
+    stroke(92, 123, 157); // light blue
+    strokeWeight(25); //wide line!
+
+    for (int i = 0; i < numVectors; i++) { //works through the numVectors
+      PVector start = vectors[i * 2]; //finds the start point from the vectors array
+      PVector end = vectors[i * 2 + 1]; //find the end point from the vectors array
+
+      line(start.x, start.y, end.x, end.y); //draw the line with these values!
+    }
+    
+    noStroke(); //reset to noStroke!
+  }
+
+  public PVector[] generateRandomVectors() {
+    PVector[] vectors = new PVector[numVectors * 2]; //creates an array for the points to the background. Needs to multiply the number of vectors by 2, one for the start point, and one for the end
+
+    for (int i = 0; i < numVectors; i++) { //go through the array the amount of numVectors there are. for the first vector, generate it's random position and then calculate direction/distance stuff.
+      for (int j = 0; j < 2; j++) { //do this twice, one for end point and one for the second.
+            float x = random(900); //random x within the width
+            float y = random(600); //random y within the height
+            vectors[i * 2 + j] = new PVector(x, y); //creates a pVector object based on these given points
+      }
+      
+      PVector direction = PVector.sub(vectors[i * 2 + 1], vectors[i * 2]); //calculates the direction between 2 points.
+      float distance = direction.mag(); //calculates the distance between 2 points
+
+        // display the direction and distance (only used to show the skill)
+        //println("Direction: " + direction + ", Distance: " + distance);
+      
+    }
+
+    return vectors; //return the values to be used later
+    
   }
   
   

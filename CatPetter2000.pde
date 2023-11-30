@@ -7,14 +7,13 @@
 PImage flameImg;
 Background Background1;
 CatFace CatFace1;
-Fur Fur1;
+ArrayList<Fur> furs;
 boolean startScreen;
 boolean gameOver;
 int distance;
 enum GameState {START, GAMEOVER, GAMEPLAY};
 GameState currentState = GameState.START;
 
-Fur[] fur = new Fur[15];
 
 void setup() {
   size(900, 600); //set canvas size to a landscape rectangle
@@ -25,20 +24,17 @@ void setup() {
   frameRate(30); //frame rate at 30
   
   Background1 = new Background();
+  Background1.initializeBackgroundVectors();
   flameImg = loadImage("Flame.jpg");
   
   CatFace1 = new CatFace();
+  furs = new ArrayList<Fur>();
   
-  Fur1 = new Fur();
-  
+ 
   startScreen = false;
   gameOver = true;
   
   rectMode(CORNERS);
-  
-  for (int i = 0; i < fur.length; i++) { //initialize the fur array
-    fur[i] = new Fur();
-  }
 }
 
 void draw(){
@@ -57,7 +53,7 @@ void draw(){
   
   //testing feature that will be commented out at the end
   if (mousePressed) { //if mouse is pressed, print the coordinates of where it was pressed
-   println(mouseX + ", " + mouseY); 
+   //println(mouseX + ", " + mouseY); 
   }
   
 }
@@ -121,7 +117,8 @@ void gamePlaying() {
    fill(160, 162, 172); //silver]
    rect(225, 520, 80, 20); //main head of brush
    rect(280, 520, 60, 10); //handle of brush
-   stroke(2); //for drawing the wire tips
+   stroke(2);
+   strokeWeight(2); //for drawing the wire tips
    line(185, 530, 185, 540); //wire 1
    line(195, 530, 195, 540); //wire 2
    line(205, 530, 205, 540); //wire 3
@@ -161,12 +158,17 @@ void gamePlaying() {
    //add a Strike
  }
  
+    for(int i = furs.size() - 1; i >= 0; i--) { //work through the arrayList backwards, because backwards can have less errors
+      furs.get(i).move(); // move the fur particles
+      furs.get(i).display(); //draw the particles
+      if (furs.get(i).position.y > 600) { //if below the screen
+       furs.remove(i);  //remove the object
+      }
+    }
+      
+      
  if (mousePressed) {
-   for(int i = 0; i < fur.length; i++) {
-      fur[i].move(); // move the fur particles
-      fur[i].display(); //draw the particles
-   }
-   
+   furs.add(new Fur(mouseX, mouseY)); //when the mouse is pressed, create more fur particles
  }
  
  
