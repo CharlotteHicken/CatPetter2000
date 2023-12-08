@@ -7,6 +7,10 @@
 PImage flameImg;
 Background Background1;
 CatFace CatFace1;
+Favourite Favs;
+int favX;
+int favY;
+String favBrush;
 ArrayList<Fur> furs;
 boolean startScreen;
 boolean gameOver;
@@ -30,6 +34,7 @@ void setup() {
   CatFace1 = new CatFace();
   furs = new ArrayList<Fur>();
   
+  Favs = new Favourite(favX, favY, favBrush);
  
   startScreen = false;
   gameOver = true;
@@ -53,7 +58,12 @@ void draw(){
   
   //testing feature that will be commented out at the end
   if (mousePressed) { //if mouse is pressed, print the coordinates of where it was pressed
-   //println(mouseX + ", " + mouseY); 
+   println(mouseX + ", " + mouseY); 
+  }
+  
+  //testing feature that gives me the randomized values.
+  if (keyPressed) {
+   println(Favs.getX() + ", " + Favs.getY() + ", " + Favs.getBrush());  
   }
   
 }
@@ -61,6 +71,7 @@ void draw(){
 void startScreenOn() {
   //reset all the values to the default
   gameOver = false;
+  Favs = new Favourite(favX, favY, favBrush);
   //draw flame background
   background(flameImg); //sets the background to the flame image
   
