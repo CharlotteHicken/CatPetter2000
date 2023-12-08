@@ -15,6 +15,7 @@ ArrayList<Fur> furs;
 boolean startScreen;
 boolean gameOver;
 int distance;
+String currentBrush;
 enum GameState {START, GAMEOVER, GAMEPLAY};
 GameState currentState = GameState.START;
 
@@ -35,6 +36,8 @@ void setup() {
   furs = new ArrayList<Fur>();
   
   Favs = new Favourite(favX, favY, favBrush);
+  
+  currentBrush = "hand";
  
   startScreen = false;
   gameOver = true;
@@ -155,10 +158,10 @@ void gamePlaying() {
  
  distance = (int) dist(Favs.getX(), Favs.getY(), mouseX, mouseY);
  //draw differnet cat faces
- if (distance >= 0 && distance <= 20) {
+ if (distance >= 0 && distance <= 20 && Favs.getBrush() == currentBrush) {
      CatFace1.DrawCatFace("happy");
  }
- else if (distance >= 20 && distance <= 50) {
+ else if (distance >= 20 && distance <= 50 && Favs.getBrush() == currentBrush) {
    CatFace1.DrawCatFace("smile");
  }
  else if (distance >= 50 && distance <= 100) {
