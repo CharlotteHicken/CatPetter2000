@@ -153,7 +153,7 @@ void gamePlaying() {
  quad(135, 20, 140, 15, 175, 50, 170, 55); //strike 3 \
  quad(170, 15, 175, 20, 140, 55, 135, 50); // strike 3 /
  
- distance = mouseX;
+ distance = (int) dist(Favs.getX(), Favs.getY(), mouseX, mouseY);
  //draw differnet cat faces
  if (distance >= 0 && distance <= 20) {
      CatFace1.DrawCatFace("happy");
