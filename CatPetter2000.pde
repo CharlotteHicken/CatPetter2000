@@ -260,7 +260,10 @@ void mousePressed(){
     }
   }
   
-  if (currentState == GameState.WIN || currentState == GameState.GAMEOVER){
+}
+
+void mouseReleased(){
+    if (currentState == GameState.WIN || currentState == GameState.GAMEOVER){
     if (mouseX >= 330 && mouseX <= 570 && mouseY >= 420 && mouseY <= 510) { //if mouse is over the button
      currentState = GameState.START; //set game to title screen
    }
