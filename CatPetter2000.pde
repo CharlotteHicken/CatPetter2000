@@ -16,6 +16,7 @@ boolean startScreen;
 boolean gameOver;
 int distance;
 String currentBrush;
+int strike;
 enum GameState {START, GAMEOVER, GAMEPLAY, WIN};
 GameState currentState = GameState.START;
 
@@ -78,6 +79,7 @@ void startScreenOn() {
   //reset all the values to the default
   gameOver = false;
   Favs = new Favourite(favX, favY, favBrush);
+  strike = 0;
   frameRate(30);
   //draw flame background
   background(flameImg); //sets the background to the flame image
@@ -148,15 +150,24 @@ void gamePlaying() {
    line(265, 530, 265, 540); //wire 9
  
  noStroke(); //reset back to nostroke
- rectMode(CORNERS); //reset back to resctMode
+ rectMode(CORNERS); //reset back to rectMode
  //draw the strike symbols
- fill(255, 0, 0); // red
+ fill(255); // white
+ if (strike >= 1) {
+   fill(255, 0, 0); // red
+ }
  quad(15, 20, 20, 15, 55, 50, 50, 55); //strike 1 \
  quad(50, 15, 55, 20, 20, 55, 15, 50); // strike 1 /
- fill(255, 0, 0); // red
+ fill(255); // white
+ if (strike >= 2) {
+   fill(255, 0, 0); // red
+ }
  quad(75, 20, 80, 15, 115, 50, 110, 55); //strike 2 \
  quad(110, 15, 115, 20, 80, 55, 75, 50); // strike 3 /
  fill(255); // white
+ if (strike == 3) {
+   fill(255, 0, 0); // red
+ }
  quad(135, 20, 140, 15, 175, 50, 170, 55); //strike 3 \
  quad(170, 15, 175, 20, 140, 55, 135, 50); // strike 3 /
  
@@ -176,7 +187,6 @@ void gamePlaying() {
  }
  else {
    CatFace1.DrawCatFace("mad");
-   //add a Strike
  }
  
     for(int i = furs.size() - 1; i >= 0; i--) { //work through the arrayList backwards, because backwards can have less errors
@@ -186,6 +196,10 @@ void gamePlaying() {
        furs.remove(i);  //remove the object
       }
     }
+    
+ if (strike == 3) {
+   currentState = GameState.GAMEOVER;
+ }
       
       
  if (mousePressed) {
@@ -243,4 +257,20 @@ void gameWin() {
      currentState = GameState.START; //set game to title screen
    }
 }
+}
+
+void mousePressed(){
+  if (currentState == GameState.GAMEPLAY) {
+    if (distance >= 0 && distance <= 20 && Favs.getBrush() == currentBrush) {
+    }
+    else if (distance >= 20 && distance <= 50 && Favs.getBrush() == currentBrush) {
+    }
+    else if (distance >= 50 && distance <= 100) {
+    }
+    else {
+     strike++;
+    }
+  }
+  
+  
 }
