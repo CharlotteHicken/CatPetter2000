@@ -26,7 +26,7 @@ void setup() {
   noStroke(); //no outline on shapes
   textAlign(CENTER, CENTER);
   
-  frameRate(30); //frame rate at 30
+  frameRate(30); //frame rate at 3
   
   Background1 = new Background();
   Background1.initializeBackgroundVectors();
@@ -78,6 +78,7 @@ void startScreenOn() {
   //reset all the values to the default
   gameOver = false;
   Favs = new Favourite(favX, favY, favBrush);
+  frameRate(30);
   //draw flame background
   background(flameImg); //sets the background to the flame image
   
@@ -213,7 +214,8 @@ void gameOverOn() {
    rect(330, 420, 570, 510); // rectangle that highlights the button shape
    
    if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
-     currentState = GameState.START;
+     frameRate(1); //slow frame rate so it does not double click
+     currentState = GameState.START; //set game to title screen
    }
 }
 }
@@ -237,7 +239,8 @@ void gameWin() {
    rect(330, 420, 570, 510); // rectangle that highlights the button shape
    
    if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
-     currentState = GameState.START;
+     frameRate(1); //slow frame rate so it does not double click
+     currentState = GameState.START; //set game to title screen
    }
 }
 }
