@@ -175,9 +175,6 @@ void gamePlaying() {
  //draw differnet cat faces
  if (distance >= 0 && distance <= 20 && Favs.getBrush() == currentBrush) {
      CatFace1.DrawCatFace("happy");
-     if (mousePressed){
-       currentState = GameState.WIN;
-     }
  }
  else if (distance >= 20 && distance <= 50 && Favs.getBrush() == currentBrush) {
    CatFace1.DrawCatFace("smile");
@@ -226,11 +223,6 @@ void gameOverOn() {
  if (mouseX >= 330 && mouseX <= 570 && mouseY >= 420 && mouseY <= 510) { //if mouse is over the button, highlight it
    fill(255, 100, 0, 20); // very translucent orange
    rect(330, 420, 570, 510); // rectangle that highlights the button shape
-   
-   if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
-     frameRate(1); //slow frame rate so it does not double click
-     currentState = GameState.START; //set game to title screen
-   }
 }
 }
 
@@ -251,17 +243,13 @@ void gameWin() {
  if (mouseX >= 330 && mouseX <= 570 && mouseY >= 420 && mouseY <= 510) { //if mouse is over the button, highlight it
    fill(255, 100, 0, 20); // very translucent orange
    rect(330, 420, 570, 510); // rectangle that highlights the button shape
-   
-   if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
-     frameRate(1); //slow frame rate so it does not double click
-     currentState = GameState.START; //set game to title screen
-   }
 }
 }
 
 void mousePressed(){
   if (currentState == GameState.GAMEPLAY) {
     if (distance >= 0 && distance <= 20 && Favs.getBrush() == currentBrush) {
+      currentState = GameState.WIN;
     }
     else if (distance >= 20 && distance <= 50 && Favs.getBrush() == currentBrush) {
     }
@@ -272,5 +260,10 @@ void mousePressed(){
     }
   }
   
+  if (currentState == GameState.WIN || currentState == GameState.GAMEOVER){
+    if (mouseX >= 330 && mouseX <= 570 && mouseY >= 420 && mouseY <= 510) { //if mouse is over the button
+     currentState = GameState.START; //set game to title screen
+   }
+}
   
 }
