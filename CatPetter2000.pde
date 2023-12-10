@@ -16,7 +16,7 @@ boolean startScreen;
 boolean gameOver;
 int distance;
 String currentBrush;
-enum GameState {START, GAMEOVER, GAMEPLAY};
+enum GameState {START, GAMEOVER, GAMEPLAY, WIN};
 GameState currentState = GameState.START;
 
 
@@ -57,6 +57,9 @@ void draw(){
     case GAMEPLAY:
       gamePlaying();
       break;
+     case WIN:
+       gameWin();
+       break;
   }
   
   //testing feature that will be commented out at the end
@@ -160,6 +163,9 @@ void gamePlaying() {
  //draw differnet cat faces
  if (distance >= 0 && distance <= 20 && Favs.getBrush() == currentBrush) {
      CatFace1.DrawCatFace("happy");
+     if (mousePressed){
+       currentState = GameState.WIN;
+     }
  }
  else if (distance >= 20 && distance <= 50 && Favs.getBrush() == currentBrush) {
    CatFace1.DrawCatFace("smile");
@@ -193,7 +199,29 @@ void gameOverOn() {
   Background1.drawBackground("end");
   CatFace1.DrawCatFace("angry");
   
-  //draw game over text
+  //draw reset button, when mousePressed set startScreen to true
+ rectMode(CORNERS); //set rectMode style to corners
+ 
+ fill(0); //draw with black
+ rect(330, 420, 570, 510); // button background
+ fill(255, 0, 0); //red
+ textSize(80); //medium text size
+ text("Restart", width/2, 460); //button text
+ 
+ if (mouseX >= 330 && mouseX <= 570 && mouseY >= 420 && mouseY <= 510) { //if mouse is over the button, highlight it
+   fill(255, 100, 0, 20); // very translucent orange
+   rect(330, 420, 570, 510); // rectangle that highlights the button shape
+   
+   if (mousePressed) { //if mouse is pressed, turn off the start screen (which then starts the game)
+     currentState = GameState.START;
+   }
+}
+}
+
+void gameWin() {
+  //call draw background but cat happy
+  Background1.drawBackground("win");
+  CatFace1.DrawCatFace("happy");
   
   //draw reset button, when mousePressed set startScreen to true
  rectMode(CORNERS); //set rectMode style to corners

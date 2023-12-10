@@ -73,6 +73,19 @@ public class Background {
        text("Game Over", width/2, 100); //title near the top
    }
    
+   if (bgMode == "win"){
+     fill(0, 50); //very transparent black
+     rect(0,0, 900, 600);
+     
+       //draw game over text
+       textSize(100); //set the size for the game title to large
+       fill(0); //black
+       text("You Pet Cats Good!", width/2, 100); //title near the top
+       textSize(95); //set the size for the game title to large
+       fill(255, 0, 0); //red
+       text("You Pet Cats  Good!", width/2, 100); //title near the top
+   }
+   
   }
   
   public void drawBluePattern(PVector[] vectors) {
