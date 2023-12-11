@@ -214,7 +214,7 @@ void gamePlaying() {
  }
       
       
- if (mousePressed) {
+ if (mouseX >= 230 && mouseX <= 700 && mouseY >= 160 && mouseY <= 450) {
    furs.add(new Fur(mouseX, mouseY)); //when the mouse is pressed, create more fur particles
  }
  
