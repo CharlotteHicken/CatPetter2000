@@ -36,7 +36,7 @@ void setup() {
   CatFace1 = new CatFace();
   furs = new ArrayList<Fur>();
   
-  Favs = new Favourite(favX, favY, favBrush);
+  Favs = new Favourite();
   
   currentBrush = "hand";
  
@@ -78,7 +78,7 @@ void draw(){
 void startScreenOn() {
   //reset all the values to the default
   gameOver = false;
-  Favs = new Favourite(favX, favY, favBrush);
+  Favs = new Favourite();
   strike = 0;
   frameRate(30);
   currentBrush = "hand";
