@@ -121,15 +121,18 @@ void gamePlaying() {
   
   rectMode(CENTER); //change to center draw mode because it is easier for when I need to make it follow mouse
  // draw the brushes
-   //rubber brush
-   fill(95, 180, 156); //cyan
-   ellipse(450, 520, 80, 40); //main round part of handle
-   rect(450, 530, 80, 20); // rectangle part of handle
-   ellipse(415, 540, 10, 10); //far left bump
-   ellipse(432.5, 540, 10, 10); //left bump
-   ellipse(450, 540, 10, 10); //middle brush bump
-   ellipse(467.5, 540, 10, 10);//right bump
-   ellipse(485, 540, 10, 10);// far right bump
+ 
+   if ( currentBrush != "rubber") {
+     //rubber brush
+     fill(95, 180, 156); //cyan
+     ellipse(450, 520, 80, 40); //main round part of handle
+     rect(450, 530, 80, 20); // rectangle part of handle
+     ellipse(415, 540, 10, 10); //far left bump
+     ellipse(432.5, 540, 10, 10); //left bump
+     ellipse(450, 540, 10, 10); //middle brush bump
+     ellipse(467.5, 540, 10, 10);//right bump
+     ellipse(485, 540, 10, 10);// far right bump
+   }
    
    //wooden brush
    fill(211, 150, 119); //tan wood colour
@@ -282,6 +285,12 @@ void mouseReleased(){
         currentBrush = "wire";
       }
       else if (mouseX >= 180 && mouseX <= 315 && mouseY >= 505 && mouseY <= 545 && currentBrush == "wire"){ //if click the wire brush spot, and wire brush is the current bursh, the brush is set to the hand
+        currentBrush = "hand";
+      }
+      else if (mouseX >= 405 && mouseX <= 495 && mouseY >= 500 && mouseY <= 545 && currentBrush != "rubber"){
+        currentBrush = "rubber";
+      }
+      else if (mouseX >= 405 && mouseX <= 495 && mouseY >= 500 && mouseY <= 545 && currentBrush == "rubber"){
         currentBrush = "hand";
       }
       else if (mouseY >= 450) { //if click the bottom area of the screen, set the brush to the hand
