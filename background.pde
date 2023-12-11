@@ -94,8 +94,8 @@ public class Background {
     strokeWeight(25); //wide line!
 
     for (int i = 0; i < numVectors; i++) { //works through the numVectors
-      PVector start = vectors[i * 2]; //finds the start point from the vectors array
-      PVector end = vectors[i * 2 + 1]; //find the end point from the vectors array
+      PVector start = vectors[i * 2]; //get the start point from the vectors array
+      PVector end = vectors[i * 2 + 1]; //get the end point from the vectors array
 
       line(start.x, start.y, end.x, end.y); //draw the line with these values!
     }

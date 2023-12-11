@@ -64,14 +64,14 @@ void draw(){
   }
   
   //testing feature that will be commented out at the end
-  if (mousePressed) { //if mouse is pressed, print the coordinates of where it was pressed
-   println(mouseX + ", " + mouseY); 
-  }
+  //if (mousePressed) { //if mouse is pressed, print the coordinates of where it was pressed
+   //println(mouseX + ", " + mouseY); 
+  //}
   
   //testing feature that gives me the randomized values.
-  if (keyPressed) {
-   println(Favs.getX() + ", " + Favs.getY() + ", " + Favs.getBrush());  
-  }
+  //if (keyPressed) {
+  // println(Favs.getX() + ", " + Favs.getY() + ", " + Favs.getBrush());  
+  //}
   
 }
 
