@@ -1,6 +1,6 @@
 public class Background {
   
-  int numVectors = 50;
+  int numVectors = 25;
   PVector[] vectors;
   
   void initializeBackgroundVectors(){
@@ -113,8 +113,8 @@ public class Background {
             vectors[i * 2 + j] = new PVector(x, y); //creates a pVector object based on these given points
       }
       
-      PVector direction = PVector.sub(vectors[i * 2 + 1], vectors[i * 2]); //calculates the direction between 2 points.
-      float distance = direction.mag(); //calculates the distance between 2 points
+      PVector direction = PVector.sub(vectors[i * 2 + 1], vectors[i * 2]); //calculates the direction between 2 points by subtracting them
+      float distance = direction.mag(); //calculates the distance between 2 points using the magnitude function shortcut
 
         // display the direction and distance (only used to show the skill)
         //println("Direction: " + direction + ", Distance: " + distance);
