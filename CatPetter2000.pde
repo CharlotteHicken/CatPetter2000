@@ -134,14 +134,16 @@ void gamePlaying() {
      ellipse(485, 540, 10, 10);// far right bump
    }
    
-   //wooden brush
-   fill(211, 150, 119); //tan wood colour
-   rect(675, 525, 80, 30); //main head of brush
-   ellipse(715, 525, 80, 15); //handle of brush
-   rect(640, 540, 10, 20); //far left bump
-   rect(662, 540, 10, 20); //left bump
-   rect(688, 540, 10, 20); //right bump
-   rect(710, 540, 10, 20); //far right bump
+   if (currentBrush != "wooden") {
+     //wooden brush
+     fill(211, 150, 119); //tan wood colour
+     rect(675, 525, 80, 30); //main head of brush
+     ellipse(715, 525, 80, 15); //handle of brush
+     rect(640, 540, 10, 20); //far left bump
+     rect(662, 540, 10, 20); //left bump
+     rect(688, 540, 10, 20); //right bump
+     rect(710, 540, 10, 20); //far right bump
+   }
    
    if (currentBrush != "wire"){
      //wire brush
@@ -287,10 +289,16 @@ void mouseReleased(){
       else if (mouseX >= 180 && mouseX <= 315 && mouseY >= 505 && mouseY <= 545 && currentBrush == "wire"){ //if click the wire brush spot, and wire brush is the current bursh, the brush is set to the hand
         currentBrush = "hand";
       }
-      else if (mouseX >= 405 && mouseX <= 495 && mouseY >= 500 && mouseY <= 545 && currentBrush != "rubber"){
+      else if (mouseX >= 405 && mouseX <= 495 && mouseY >= 500 && mouseY <= 545 && currentBrush != "rubber"){//if click the rubber brush, and the rubber brush is not the current brush, the brush is now the current brush
         currentBrush = "rubber";
       }
-      else if (mouseX >= 405 && mouseX <= 495 && mouseY >= 500 && mouseY <= 545 && currentBrush == "rubber"){
+      else if (mouseX >= 405 && mouseX <= 495 && mouseY >= 500 && mouseY <= 545 && currentBrush == "rubber"){//if click the rubber brush spot, and rubber brush is the current bursh, the brush is set to the hand
+        currentBrush = "hand";
+      }
+      else if (mouseX >= 630 && mouseX <= 760 && mouseY >= 505 && mouseY <= 555 && currentBrush != "wooden"){//if click the wooden brush, and the wooden brush is not the current brush, the brush is now the current brush
+        currentBrush = "wooden";
+      }
+      else if (mouseX >= 630 && mouseX <= 760 && mouseY >= 505 && mouseY <= 555 && currentBrush == "wooden"){ //if click the wooden brush spot, and wooden brush is the current bursh, the brush is set to the hand
         currentBrush = "hand";
       }
       else if (mouseY >= 450) { //if click the bottom area of the screen, set the brush to the hand
