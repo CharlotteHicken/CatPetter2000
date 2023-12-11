@@ -81,6 +81,7 @@ void startScreenOn() {
   Favs = new Favourite(favX, favY, favBrush);
   strike = 0;
   frameRate(30);
+  currentBrush = "hand";
   //draw flame background
   background(flameImg); //sets the background to the flame image
   
@@ -218,12 +219,65 @@ void gamePlaying() {
  }
  
  
+ //draw the burshes following the mouse position if they are selected
+ rectMode(CENTER); //change to center draw mode because it is easier for when I need to make it follow mouse
+ if (currentBrush == "rubber") {
+     //rubber brush (X = 450, Y = 520)
+     noCursor();
+     fill(95, 180, 156); //cyan
+     ellipse(mouseX, mouseY, 80, 40); //main round part of handle
+     rect(mouseX, mouseY + 10, 80, 20); // rectangle part of handle
+     ellipse(mouseX - 35, mouseY +20, 10, 10); //far left bump
+     ellipse(mouseX - 17.5, mouseY + 20, 10, 10); //left bump
+     ellipse(mouseX, mouseY +20, 10, 10); //middle brush bump
+     ellipse(mouseX + 17.5, mouseY + 20, 10, 10);//right bump
+     ellipse(mouseX + 35, mouseY + 20, 10, 10);// far right bump
+   }
+   
+   if (currentBrush == "wooden") {
+     //wooden brush (X = 700, Y = 525)
+     noCursor();
+     fill(211, 150, 119); //tan wood colour
+     rect(mouseX - 25, mouseY, 80, 30); //main head of brush
+     ellipse(mouseX + 15, mouseY, 80, 15); //handle of brush
+     rect(mouseX - 60, mouseY + 15, 10, 20); //far left bump
+     rect(mouseX - 38, mouseY + 15, 10, 20); //left bump
+     rect(mouseX - 12, mouseY + 15, 10, 20); //right bump
+     rect(mouseX + 10, mouseY + 15, 10, 20); //far right bump
+   }
+   
+   if (currentBrush == "wire"){
+     //wire brush (X = 250, Y = 520);
+     noCursor();
+     fill(160, 162, 172); //silver
+     rect(mouseX - 25, mouseY, 80, 20); //main head of brush
+     rect(mouseX + 30, mouseY, 60, 10); //handle of brush
+     stroke(2);
+     strokeWeight(2); //for drawing the wire tips
+     line(mouseX - 65, mouseY + 10, mouseX - 65, mouseY + 20); //wire 1
+     line(mouseX - 55, mouseY + 10, mouseX - 55, mouseY + 20); //wire 2
+     line(mouseX - 45, mouseY + 10, mouseX - 45, mouseY + 20); //wire 3
+     line(mouseX - 35, mouseY + 10, mouseX - 35, mouseY + 20); //wire 4
+     line(mouseX - 25, mouseY + 10, mouseX - 25, mouseY + 20); //wire 5
+     line(mouseX - 15, mouseY + 10, mouseX - 15, mouseY + 20); //wire 6
+     line(mouseX - 5, mouseY + 10, mouseX - 5, mouseY + 20); //wire 7
+     line(mouseX + 5, mouseY + 10, mouseX + 5, mouseY + 20); //wire 8
+     line(mouseX + 15, mouseY + 10, mouseX + 15, mouseY + 20); //wire 9
+   }
+   noStroke(); //reset back to nostroke
+   rectMode(CORNERS); //reset back to rectMode
+   
+   if (currentBrush == "hand") { //turn the cursor back on if the hand is selected
+     cursor();
+   }
+ 
 }
 
 void gameOverOn() {
   //call draw background but cat bite
   Background1.drawBackground("end");
   CatFace1.DrawCatFace("angry");
+  cursor();
   
   //draw reset button, when mousePressed set startScreen to true
  rectMode(CORNERS); //set rectMode style to corners
@@ -244,6 +298,7 @@ void gameWin() {
   //call draw background but cat happy
   Background1.drawBackground("win");
   CatFace1.DrawCatFace("happy");
+  cursor();
   
   //draw reset button, when mousePressed set startScreen to true
  rectMode(CORNERS); //set rectMode style to corners
