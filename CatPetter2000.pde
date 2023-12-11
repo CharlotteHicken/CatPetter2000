@@ -140,21 +140,23 @@ void gamePlaying() {
    rect(688, 540, 10, 20); //right bump
    rect(710, 540, 10, 20); //far right bump
    
-   //wire brush
-   fill(160, 162, 172); //silver]
-   rect(225, 520, 80, 20); //main head of brush
-   rect(280, 520, 60, 10); //handle of brush
-   stroke(2);
-   strokeWeight(2); //for drawing the wire tips
-   line(185, 530, 185, 540); //wire 1
-   line(195, 530, 195, 540); //wire 2
-   line(205, 530, 205, 540); //wire 3
-   line(215, 530, 215, 540); //wire 4
-   line(225, 530, 225, 540); //wire 5
-   line(235, 530, 235, 540); //wire 6
-   line(245, 530, 245, 540); //wire 7
-   line(255, 530, 255, 540); //wire 8
-   line(265, 530, 265, 540); //wire 9
+   if (currentBrush != "wire"){
+     //wire brush
+     fill(160, 162, 172); //silver]
+     rect(225, 520, 80, 20); //main head of brush
+     rect(280, 520, 60, 10); //handle of brush
+     stroke(2);
+     strokeWeight(2); //for drawing the wire tips
+     line(185, 530, 185, 540); //wire 1
+     line(195, 530, 195, 540); //wire 2
+     line(205, 530, 205, 540); //wire 3
+     line(215, 530, 215, 540); //wire 4
+     line(225, 530, 225, 540); //wire 5
+     line(235, 530, 235, 540); //wire 6
+     line(245, 530, 245, 540); //wire 7
+     line(255, 530, 255, 540); //wire 8
+     line(265, 530, 265, 540); //wire 9
+   }
  
  noStroke(); //reset back to nostroke
  rectMode(CORNERS); //reset back to rectMode
@@ -273,6 +275,17 @@ void mouseReleased(){
     if (currentState == GameState.WIN || currentState == GameState.GAMEOVER){ //if on the game screens
       if (mouseX >= 330 && mouseX <= 570 && mouseY >= 420 && mouseY <= 510) { //if mouse is over the button
        currentState = GameState.START; //set game to title screen
+      }
+    }
+    else if (currentState == GameState.GAMEPLAY) { //if the gameplay is currently active
+      if (mouseX >= 180 && mouseX <= 315 && mouseY >= 505 && mouseY <= 545 && currentBrush != "wire") { //if click the wire brush, and the wire brush is not the current brush, the brush is now the current brush
+        currentBrush = "wire";
+      }
+      else if (mouseX >= 180 && mouseX <= 315 && mouseY >= 505 && mouseY <= 545 && currentBrush == "wire"){ //if click the wire brush spot, and wire brush is the current bursh, the brush is set to the hand
+        currentBrush = "hand";
+      }
+      else if (mouseY >= 450) { //if click the bottom area of the screen, set the brush to the hand
+        currentBrush = "hand";
       }
     }
   
